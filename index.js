@@ -4,6 +4,7 @@ const cors = require('cors')
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
+const helmet = require('helmet')
 
 
 const app = express()
@@ -18,6 +19,7 @@ app.use(fileUpload({
     useTempFiles : true,
     tempFileDir : '/tmp/'
 }))
+app.use(helmet());
 
 
 // router 
