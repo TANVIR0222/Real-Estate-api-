@@ -13,17 +13,29 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image:{
+    type: String,
+    default:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/1200px-Airbnb_Logo_B%C3%A9lo.svg.png'
+  },
   password: {
     type: String,
     required: true,
   },
-  imageurl: {
-    type: String,
-    required: true,
+  tripList: {
+    type: Array,
+    default: [],
   },
-  imageid: {
-    type: String,
-    required: true,
+  wishList: {
+    type: Array,
+    default: [],
+  },
+  propertyList: {
+    type: Array,
+    default: [],
+  },
+  reservationList: {
+    type: Array,
+    default: [],
   },
 
 },{timestamps:true});
