@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
+  role: {
+    type: Array,
+    default: [],
+  },
 
 },{timestamps:true});
 
