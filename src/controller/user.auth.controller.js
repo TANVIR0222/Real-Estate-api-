@@ -27,36 +27,17 @@ const register = async (req, res) => {
       throw new Error("Please fill in all fields");
     }
 
-    //   image uploade
-    cloudinary.uploader.upload(
-      req.files.image.tempFilePath,
-      async (err, result) => {
-        if (err) return res.status(400).json({ msg: err.message });
+    const hashPassword = await bcrypt.hash(password, 10);
 
-        //  hash passwod
-        const hashPassword = await bcrypt.hash(password, 10);
+    const newUser = await new User({
+      firstname,
+      lastname,
+      email,
+      password: hashPassword,
+    });
 
-        const newUser = await new User({
-          firstname,
-          lastname,
-          email,
-          password: hashPassword,
-          imageurl: result.secure_url,
-          imageid: result.public_id,
-        });
-        //   save user to database
-        await newUser
-          .save()
-          .then(() => {
-            res
-              .status(201)
-              .json({ msg: "User created successfully", user: newUser });
-          })
-          .catch((err) => {
-            res.status(404).json({ msg: err.message });
-          });
-      }
-    );
+    await newUser.save();
+    res.status(201).json({ msg: "User created successfully", user: newUser });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
@@ -70,7 +51,6 @@ const singin = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
-    // res.status(200).json({msg:"User  found"});
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
@@ -86,23 +66,30 @@ const singin = async (req, res) => {
 
     res.status(200).json({
       message: "Login ",
+      success: true,
+      error: false,
+      token,
       user: {
         id: user.id,
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
-        imageurl: user.imageurl,
-        imageid: user.imageid,
-        token: token,
+        profileImage: user.image,
       },
     });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
 };
-// const register = async(req,res) => {
-//     res.status(201).json({message : 'ok'})
-// }
+const logout = async(req,res) => {
+  try {
+    res.clearCookie('token');
+    res.status(200).send({ message: " logout  success  " });
+  } catch (error) {
+    console.log(" login out faild :", error);
+    res.status(404).send({ message: "login out faild " });
+  }
+}
 // const register = async(req,res) => {
 //     res.status(201).json({message : 'ok'})
 // }
@@ -110,4 +97,4 @@ const singin = async (req, res) => {
 //     res.status(201).json({message : 'ok'})
 // }
 
-module.exports = { register, singin };
+module.exports = { register, singin, logout };
