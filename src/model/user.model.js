@@ -38,8 +38,9 @@ const userSchema = new mongoose.Schema({
     default: [],
   },
   role: {
-    type: Array,
-    default: [],
+    type: String,
+    eunm: ["Admin", " USER"],
+    default: "USER"
   },
 
 },{timestamps:true});
