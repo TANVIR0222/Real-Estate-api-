@@ -74,15 +74,6 @@ const addProperty = async (req, res) => {
     ) {
       return res.status(400).json({ message: "Please fill in all fields" });
     }
-
-    // const photoList = req.file;
-    // if (!photoList) {
-    //   return res.status(400).json({ message: "Please upload a photo" });
-    // }
-
-    // console.log(photoList," gggh");
-
-    // const listingPhotoPath = photoList.map((file) => file.path);
     const property = new Listing({
       userId,
       category,
@@ -116,32 +107,6 @@ const addProperty = async (req, res) => {
   }
 };
 
-const categoryProperty = async (req, res) => {
-  try {
-    const qCategory = req.query.category;
-    // const properties = await Listing.find({ category });
 
-    let listing;
-    if (qCategory) {
-      listing = await Listing.find({ category: qCategory }).populate(
-        "category"
-      );
-    } else {
-      listing = await Listing.find().populate("category");
-    }
 
-    res.status(200).json({
-      message: "Properties found successfully",
-      success: true,
-      data: listing,
-      error: false,
-    });
-  } catch (error) {
-    console.log(error);
-    res
-      .status(201)
-      .json({ message: error.message || error, success: false, error: true });
-  }
-};
-
-module.exports = { upload, addProperty, categoryProperty }; //export the multer instance to use in other files
+module.exports = { upload, addProperty }; //export the multer instance to use in other files
