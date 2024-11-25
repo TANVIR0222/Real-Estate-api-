@@ -50,13 +50,13 @@ const listingSchema = new mongoose.Schema({
         required: true
     },
     amenities: {
-        type: Number,
-        default: []
+        type : Array,
+        default : []
     },
-    listingPhotoPath: {
-        type: String,
-        required: true
-    },
+    // listingPhotoPath: {
+    //     type: String,
+    //     required: true
+    // },
     title: {
         type: String,
         required: true
