@@ -26,8 +26,10 @@ app.use(helmet());
 
 const userRouter = require('./src/router/user.route');
 const connectDB = require('./src/db/connectDB');
+const listRouter = require('./src/router/list.route');
 
 app.use('/api/auth', userRouter )
+app.use('/api/post', listRouter)
 
 
 app.get('/', (req, res) => {
