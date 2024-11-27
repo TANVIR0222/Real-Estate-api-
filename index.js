@@ -3,7 +3,6 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser')
-const fileUpload = require('express-fileupload')
 const helmet = require('helmet')
 
 
@@ -14,11 +13,8 @@ const port = process.env.PORT || 5000
 // middleware
 dotenv.config();
 app.use(bodyParser.json())
+app.use(express.json())
 app.use(cors())
-app.use(fileUpload({
-    useTempFiles : true,
-    tempFileDir : '/tmp/'
-}))
 app.use(helmet());
 
 
@@ -27,9 +23,11 @@ app.use(helmet());
 const userRouter = require('./src/router/user.route');
 const connectDB = require('./src/db/connectDB');
 const listRouter = require('./src/router/list.route');
+const uploadeImageRouter = require('./src/router/uploadeImage.route');
 
 app.use('/api/auth', userRouter )
 app.use('/api/post', listRouter)
+app.use('/api/file', uploadeImageRouter)
 
 
 app.get('/', (req, res) => {

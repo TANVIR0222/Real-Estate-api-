@@ -1,20 +1,6 @@
-const multer = require("multer");
 const Listing = require("../model/list.model");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "/public/uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage });
-
 const addProperty = async (req, res) => {
-  // console.log(req);
-  
   try {
     const {
       userId,
@@ -33,27 +19,8 @@ const addProperty = async (req, res) => {
       title,
       descriptions,
       price,
+      listingPhotoPath,
     } = req.body;
-
-    console.log(
-      userId,
-      category,
-      type,
-      streetAddress,
-      aptSuity,
-      city,
-      Province,
-      country,
-      guestCount,
-      bedroomCount,
-      bedCount,
-      bathroomCount,
-      amenities,
-      title,
-      descriptions,
-      price
-    );
-
     if (
       !userId ||
       !category ||
@@ -70,6 +37,7 @@ const addProperty = async (req, res) => {
       !amenities ||
       !title ||
       !descriptions ||
+      !listingPhotoPath ||
       !price
     ) {
       return res.status(400).json({ message: "Please fill in all fields" });
@@ -91,6 +59,7 @@ const addProperty = async (req, res) => {
       title,
       descriptions,
       price,
+      listingPhotoPath,
     });
     await property.save();
     res.status(201).json({
@@ -107,6 +76,25 @@ const addProperty = async (req, res) => {
   }
 };
 
+const categoryProperty = async (req, res) => {
+  try {
+    // console.log(req.query)
+    const qCategory = req.query.category;
+    let listing;
+    if (qCategory) {
+      listing = await Listing.find({ category: qCategory })
+    } else {
+      listing = await Listing.find().populate('category')
+    }
+    res.status(200).json(listing);
 
+    // Listing.fi
+  } catch (error) {
+    console.log(error);
+    res
+      .status(201)
+      .json({ message: error.message || error, success: false, error: true });
+  }
+};
 
-module.exports = { upload, addProperty }; //export the multer instance to use in other files
+module.exports = { addProperty, categoryProperty }; //export the multer instance to use in other files
