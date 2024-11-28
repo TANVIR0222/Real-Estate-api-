@@ -53,10 +53,10 @@ const listingSchema = new mongoose.Schema({
         type : Array,
         default : []
     },
-    // listingPhotoPath: {
-    //     type: String,
-    //     required: true
-    // },
+    listingPhotoPath: {
+        type : Array,
+        default : []
+    },
     title: {
         type: String,
         required: true
