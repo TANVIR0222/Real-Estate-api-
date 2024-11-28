@@ -71,7 +71,7 @@ const addProperty = async (req, res) => {
   } catch (error) {
     console.log(error);
     res
-      .status(201)
+      .status(404)
       .json({ message: error.message || error, success: false, error: true });
   }
 };
@@ -82,9 +82,9 @@ const categoryProperty = async (req, res) => {
     const qCategory = req.query.category;
     let listing;
     if (qCategory) {
-      listing = await Listing.find({ category: qCategory })
+      listing = await Listing.find({ category: qCategory });
     } else {
-      listing = await Listing.find().populate('category')
+      listing = await Listing.find().populate("category");
     }
     res.status(200).json(listing);
 
@@ -92,9 +92,21 @@ const categoryProperty = async (req, res) => {
   } catch (error) {
     console.log(error);
     res
-      .status(201)
+      .status(404)
       .json({ message: error.message || error, success: false, error: true });
   }
 };
 
-module.exports = { addProperty, categoryProperty }; //export the multer instance to use in other files
+const singleProperty = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const products = await Listing.findById(id);
+    res.status(201).json(products);
+  } catch (error) {
+    res
+      .status(404)
+      .json({ message: error.message || error, success: false, error: true });
+  }
+};
+
+module.exports = { addProperty, categoryProperty, singleProperty }; //export the multer instance to use in other files
