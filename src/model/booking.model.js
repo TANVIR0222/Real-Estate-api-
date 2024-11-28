@@ -1,0 +1,19 @@
+const { default: mongoose } = require("mongoose");
+
+const bookingSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    propertyId: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const Booking = mongoose.model("Booking", bookingSchema);
+module.exports = Booking;
