@@ -1,4 +1,3 @@
-const { ReactReduxContext } = require("react-redux");
 const Booking = require("../model/booking.model");
 
 const addBooking = async (req, res) => {
@@ -14,14 +13,12 @@ const addBooking = async (req, res) => {
       userId,
       propertyId,
     });
-    res
-      .status(201)
-      .json({
-        message: "Add success Full",
-        success: true,
-        error: false,
-        booking,
-      });
+    res.status(201).json({
+      message: "Add success Full",
+      success: true,
+      error: false,
+      booking,
+    });
   } catch (error) {
     res
       .status(404)
