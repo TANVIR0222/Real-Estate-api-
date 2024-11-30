@@ -17,7 +17,7 @@ const addBooking = async (req, res) => {
       price,
     } = req.body;
 
-    const allReadyExisting = await Booking.findOne({ propertyId });
+    const allReadyExisting = await Booking.findOne({ propertyId , userId});
     if (allReadyExisting) {
       return res.status(400).json({ message: "Booking already exist" });
     }

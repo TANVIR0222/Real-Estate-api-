@@ -25,11 +25,13 @@ const connectDB = require('./src/db/connectDB');
 const listRouter = require('./src/router/list.route');
 const uploadeImageRouter = require('./src/router/uploadeImage.route');
 const bookingRoute = require('./src/router/booking.route');
+const tripListRoute = require('./src/router/trip.route');
 
 app.use('/api/auth', userRouter )
 app.use('/api/post', listRouter)
 app.use('/api/file', uploadeImageRouter)
 app.use('/api/booking', bookingRoute)
+app.use('/api/trip', tripListRoute)
 
 
 app.get('/', (req, res) => {

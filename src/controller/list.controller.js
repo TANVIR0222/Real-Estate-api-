@@ -109,4 +109,22 @@ const singleProperty = async (req, res) => {
   }
 };
 
-module.exports = { addProperty, categoryProperty, singleProperty }; //export the multer instance to use in other files
+
+const productSearch = async(req,res) => {
+  try {
+
+    const {search = ""} = req.query;    
+    const searchResult =  search ? {title :{$regex : search , $options: "i" } }  : {}
+    const products = await Listing.find(searchResult)
+    res
+    .status(201)
+    .json(products);
+    
+  } catch (error) {
+    res
+    .status(404)
+    .json({ message: error.message || error, success: false, error: true });
+  }
+}
+
+module.exports = { addProperty, categoryProperty, singleProperty , productSearch}; //export the multer instance to use in other files
