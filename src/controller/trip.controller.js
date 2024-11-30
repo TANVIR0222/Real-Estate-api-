@@ -52,7 +52,6 @@ const addTripList = async (req, res) => {
 const getTripList = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id)
     const allReadyExisting = await TripList.find({ userId: id });
     res.status(201).json(allReadyExisting);
   } catch (error) {
