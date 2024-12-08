@@ -1,9 +1,8 @@
-const User = require("../model/user.model");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import User from "../model/user.model.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-const cloudinary = require("cloudinary").v2;
-// require('dotenv').config();
+import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -15,7 +14,7 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
 };
 
-const register = async (req, res) => {
+export const register = async (req, res) => {
   try {
     const { firstname, lastname, email, password, image } = req.body;
 
@@ -45,7 +44,7 @@ const register = async (req, res) => {
 };
 
 //
-const singin = async (req, res) => {
+export const singin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -82,7 +81,7 @@ const singin = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
-const logout = async (req, res) => {
+export const logout = async (req, res) => {
   try {
     res.clearCookie("token");
     res.status(200).send({ message: " logout  success  " });
@@ -91,11 +90,4 @@ const logout = async (req, res) => {
     res.status(404).send({ message: "login out faild " });
   }
 };
-// const register = async(req,res) => {
-//     res.status(201).json({message : 'ok'})
-// }
-// const register = async(req,res) => {
-//     res.status(201).json({message : 'ok'})
-// }
 
-module.exports = { register, singin, logout };

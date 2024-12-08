@@ -1,9 +1,9 @@
+import express from "express";
+import upload from "../utils/multer.js";
+import {uploadeImage} from "../controller/uploade.controller.js";
 
-const express = require('express');
-const upload = require('../utils/multer');
-const uploadeImage = require('../controller/uploade.controller');
 
 
 const uploadeImageRouter = express.Router();
 uploadeImageRouter.post('/uploade' , upload.single('avatar') , uploadeImage )
-module.exports = uploadeImageRouter;
+export default uploadeImageRouter;

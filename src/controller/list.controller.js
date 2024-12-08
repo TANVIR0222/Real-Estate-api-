@@ -1,6 +1,6 @@
-const Listing = require("../model/list.model");
+import Listing from "../model/list.model.js";
 
-const addProperty = async (req, res) => {
+export const addProperty = async (req, res) => {
   try {
     const {
       userId,
@@ -76,7 +76,7 @@ const addProperty = async (req, res) => {
   }
 };
 
-const categoryProperty = async (req, res) => {
+export const categoryProperty = async (req, res) => {
   try {
     // console.log(req.query)
     const qCategory = req.query.category;
@@ -97,7 +97,7 @@ const categoryProperty = async (req, res) => {
   }
 };
 
-const singleProperty = async (req, res) => {
+export const singleProperty = async (req, res) => {
   try {
     const id = req.params.id;
     const products = await Listing.findById(id);
@@ -110,7 +110,7 @@ const singleProperty = async (req, res) => {
 };
 
 
-const productSearch = async(req,res) => {
+export const productSearch = async(req,res) => {
   try {
 
     const {search = ""} = req.query;    
@@ -127,4 +127,3 @@ const productSearch = async(req,res) => {
   }
 }
 
-module.exports = { addProperty, categoryProperty, singleProperty , productSearch}; //export the multer instance to use in other files

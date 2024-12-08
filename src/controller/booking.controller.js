@@ -1,7 +1,8 @@
-const Booking = require("../model/booking.model");
-const Listing = require("../model/list.model");
+import Booking from "../model/booking.model.js";
+import Listing from "../model/list.model.js";
 
-const addBooking = async (req, res) => {
+
+export const addBooking = async (req, res) => {
   try {
     const {
       userId,
@@ -48,7 +49,7 @@ const addBooking = async (req, res) => {
   }
 };
 
-const fovoriteBooking = async (req, res) => {
+export const fovoriteBooking = async (req, res) => {
   try {
     const { id } = req.params;
     const allReadyExisting = await Booking.find({ userId: id });
@@ -59,7 +60,7 @@ const fovoriteBooking = async (req, res) => {
       .json({ message: error.message || error, success: false, error: true });
   }
 };
-const fovoritBooking = async (req, res) => {
+export const fovoritBooking = async (req, res) => {
   try {
     const { id } = req.params;
     const allReadyExisting = await Listing.find({ id });
@@ -71,4 +72,3 @@ const fovoritBooking = async (req, res) => {
   }
 };
 
-module.exports = { addBooking, fovoriteBooking };

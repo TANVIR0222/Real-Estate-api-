@@ -1,15 +1,12 @@
+import express from "express";
 
-const express = require('express');
-const { addProperty , categoryProperty, singleProperty ,productSearch} = require('../controller/list.controller');
-const upload = require('../utils/multer');
-
+import {addProperty,categoryProperty,singleProperty,productSearch,} from "../controller/list.controller.js";
 
 const listRouter = express.Router();
 
-listRouter.post('/add-property' , addProperty);
-listRouter.get('/category', categoryProperty)
-listRouter.get('/single-Property/:id', singleProperty)
-listRouter.get('/search-Property', productSearch)
+listRouter.post("/add-property", addProperty);
+listRouter.get("/category", categoryProperty);
+listRouter.get("/single-Property/:id", singleProperty);
+listRouter.get("/search-Property", productSearch);
 
-
-module.exports = listRouter;  //export the router to use in other files.  //export
+export default listRouter; //export the router to use in other files.  //export

@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+import mongoose from "mongoose";
 
 const listingSchema = new mongoose.Schema({
     userId:{
@@ -72,4 +72,4 @@ const listingSchema = new mongoose.Schema({
 },{timestamps: true})
 const Listing = mongoose.model('Listing', listingSchema)  //export the model
 
-module.exports = Listing; //export the model
+export default Listing; //export the model

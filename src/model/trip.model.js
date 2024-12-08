@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+import mongoose from "mongoose";
 
 const tripSchema = mongoose.Schema(
   {
@@ -68,4 +68,4 @@ const tripSchema = mongoose.Schema(
   { timestamps: true }
 );
 const TripList = mongoose.model("TripList", tripSchema);
-module.exports = TripList;
+export default TripList;

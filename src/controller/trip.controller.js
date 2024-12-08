@@ -1,6 +1,7 @@
-const TripList = require("../model/trip.model");
+import TripList from "../model/list.model.js";
 
-const addTripList = async (req, res) => {
+
+export const addTripList = async (req, res) => {
   try {
     const {
       userId,
@@ -49,7 +50,7 @@ const addTripList = async (req, res) => {
 };
 
 
-const getTripList = async (req, res) => {
+export const getTripList = async (req, res) => {
   try {
     const { id } = req.params;
     const allReadyExisting = await TripList.find({ userId: id });
@@ -62,4 +63,3 @@ const getTripList = async (req, res) => {
 };
 
 
-module.exports = {addTripList , getTripList};  // Export the function to use in other files

@@ -1,6 +1,7 @@
-const uploadImageToCloudinary = require("../utils/imageUploader");
+import uploadImageToCloudinary from "../utils/imageUploader.js";
 
-const uploadeImage = async (req, res) => {
+
+export const uploadeImage = async (req, res) => {
   try {
     const file = req.file;
 
@@ -19,4 +20,4 @@ const uploadeImage = async (req, res) => {
   }
 };
 
-module.exports = uploadeImage;
+ 
