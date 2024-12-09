@@ -63,8 +63,8 @@ export const fovoriteBooking = async (req, res) => {
 export const fovoritBooking = async (req, res) => {
   try {
     const { id } = req.params;
-    const allReadyExisting = await Listing.find({ id });
-    res.status(201).json(allReadyExisting);
+    const deleteFavorite = await Booking.findByIdAndDelete( id);
+    res.status(201).json(deleteFavorite);
   } catch (error) {
     res
       .status(404)
