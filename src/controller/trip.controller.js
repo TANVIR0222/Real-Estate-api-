@@ -1,4 +1,4 @@
-import TripList from "../model/list.model.js";
+import TripList from "../model/trip.model.js";
 
 
 export const addTripList = async (req, res) => {
@@ -52,7 +52,7 @@ export const addTripList = async (req, res) => {
 
 export const getTripList = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params;    
     const allReadyExisting = await TripList.find({ userId: id });
     res.status(201).json(allReadyExisting);
   } catch (error) {
